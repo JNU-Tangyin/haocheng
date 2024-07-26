@@ -1,0 +1,9 @@
+pandas
+sklearn
+keras
+stockstats
+tensorflow
+joblib
+numpy
+seaborn
+matplotlib
