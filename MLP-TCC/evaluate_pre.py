@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from stockstats import StockDataFrame
-# from utils import validate
+from utils import validate
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
@@ -9,7 +9,7 @@ sns.set_context("notebook")
 
 class Evaluator():
     def __init__(self, sdf:StockDataFrame):
-        # validate(sdf, required=['close', 'action'])
+        validate(sdf, required=['close', 'action'])
         self.sdf = sdf
         self.result = self.evaluate()   # 业绩序列
         # 做空的日期
@@ -112,10 +112,9 @@ class Evaluator():
             ax.tick_params(axis='x', labelsize=6) 
 
     def plot(self, **kwargs):
-        fig, axes = plt.subplots(3,1, figsize=(12, 8), sharex=True, gridspec_kw={"height_ratios": [2, 2, 1]}, dpi=120)
-        self.result[['2x_short', '2x_no_short']].plot(ax=axes[0], colormap="viridis",**kwargs)
-        self.result[['1x_short', '1x_no_short']].plot(ax=axes[1], colormap="viridis",**kwargs)
-        self.result["B&H"].plot(ax=axes[2], rot=90, **kwargs)
+        fig, axes = plt.subplots(2,1, figsize=(8, 8), sharex=True, gridspec_kw={"height_ratios": [2, 1]}, dpi=120)
+        self.result[['1x_short', '1x_no_short','2x_short', '2x_no_short']].plot(ax=axes[0], colormap="viridis",**kwargs)
+        self.result["B&H"].plot(ax=axes[1], rot=90, **kwargs)
         self.collect_shorts()
         self.attach_grey(axes)
         return fig 
